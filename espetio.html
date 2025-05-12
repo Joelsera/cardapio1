@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pastel do Gaúcho - Cardápio Digital Profissional</title>
+  <style>
+    /* Variáveis de cores */
+    :root {
+      --primary-color: #ffcc00;
+      --secondary-color: #333;
+      --accent-color: #25d366;
+      --light-color: #f0f0f0;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-color);
+      color: var(--secondary-color);
+      line-height: 1.6;
+      padding: 20px;
+    }
+    
+    header {
+      background-color: var(--primary-color);
+      padding: 20px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
+    header p {
+      font-size: 1.2rem;
+    }
+    
+    .main-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .menu-container {
+      flex: 2;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .menu-section {
+      margin-bottom: 30px;
+    }
+    
+    .menu-section h2 {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 5px;
+    }
+    
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    
+    .menu-item .item-info {
+      flex: 1;
+    }
+    
+    .menu-item .item-info span {
+      font-size: 1.1rem;
+    }
+    
+    .menu-item .price {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+    .menu-item button {
+      background-color: var(--primary-color);
+      border: none;
+      color: var(--secondary-color);
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 0.9rem;
+    }
+    
+    .menu-item button:hover {
+      background-color: #e6b800;
+    }
+    
+    .cart-container {
+      flex: 1;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    .cart-container h2 {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 5px;
+    }
+    
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .cart-item span {
+      font-size: 1rem;
+    }
+    
+    .cart-item button {
+      background-color: #ff4d4d;
+      border: none;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    
+    .cart-total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 15px;
+      text-align: right;
+    }
+    
+    .cart-actions {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .cart-actions button,
+    .cart-actions a {
+      background-color: var(--accent-color);
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .cart-actions button:hover,
+    .cart-actions a:hover {
+      background-color: #1ebc57;
+    }
+    
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pastel do Gaúcho</h1>
+    <p>Cardápio Digital Profissional com Pedido via WhatsApp</p>
+  </header>
+  
+  <div class="main-container">
+    <!-- Área do Cardápio -->
+    <div class="menu-container">
+      <!-- Bebidas -->
+      <div class="menu-section" id="bebidas">
+        <h2>Bebidas</h2>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Água</span>
+          </div>
+          <div class="price">R$3,00</div>
+          <button onclick="addItem('Água', 3)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Água c/ Gás</span>
+          </div>
+          <div class="price">R$3,00</div>
+          <button onclick="addItem('Água c/ Gás', 3)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Refrigerante 350ml</span>
+          </div>
+          <div class="price">R$7,00</div>
+          <button onclick="addItem('Refrigerante 350ml', 5)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>H2O Limoneto</span>
+          </div>
+          <div class="price">R$8,00</div>
+          <button onclick="addItem('H2O Limão', 6)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Suco Diverso</span>
+          </div>
+          <div class="price">R$7,00</div>
+          <button onclick="addItem('Suco Diverso', 7)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Bhahma Duplo Mate 350ml</span>
+          </div>
+          <div class="price">R$7,00</div>
+          <button onclick="addItem('Suco Duplo Mate 350ml', 7)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Heineken</span>
+          </div>
+          <div class="price">R$12,00</div>
+          <button onclick="addItem('Heineken', 12)">Adicionar</button>
+        </div>
+      </div>
+      
+      <!-- Pastéis Salgados -->
+      <div class="menu-section" id="salgados">
+        <h2>Pastéis Salgados</h2>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Carne com Azeitona</span>
+          </div>
+          <div class="price">R$15,00</div>
+          <button onclick="addItem('Carne com Azeitona', 15)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Calabresa</span>
+          </div>
+          <div class="price">R$15,00</div>
+          <button onclick="addItem('Calabresa', 15)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Calabresa com Queijo</span>
+          </div>
+          <div class="price">R$16,00</div>
+          <button onclick="addItem('Calabresa com Queijo', 16)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Frango</span>
+          </div>
+          <div class="price">R$16,00</div>
+          <button onclick="addItem('Frango', 16)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Frango com Queijo</span>
+          </div>
+          <div class="price">R$16,00</div>
+          <button onclick="addItem('Frango com Queijo', 16)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Pizza</span>
+          </div>
+          <div class="price">R$16,00</div>
+          <button onclick="addItem('Pizza', 16)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Pernil</span>
+          </div>
+          <div class="price">R$16,00</div>
+          <button onclick="addItem('Pernil', 16)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Pernil com Queijo</span>
+          </div>
+          <div class="price">R$16,00</div>
+          <button onclick="addItem('Pernil com Queijo', 16)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Carne Moída</span>
+          </div>
+          <div class="price">R$16,00</div>
+          <button onclick="addItem('Carne Moída', 16)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Carne Moída com Queijo</span>
+          </div>
+          <div class="price">R$16,00</div>
+          <button onclick="addItem('Carne Moída com Queijo', 16)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Carne Moída c/ Toque de Cebola</span>
+          </div>
+          <div class="price">R$16,00</div>
+          <button onclick="addItem('Carne Moída c/ Toque de Cebola', 16)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Carne Moída com Toque de Cebola e Queijo</span>
+          </div>
+          <div class="price">R$17,00</div>
+          <button onclick="addItem('Carne Moída com Toque de Cebola e Queijo', 17)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Charque</span>
+          </div>
+          <div class="price">R$17,00</div>
+          <button onclick="addItem('Charque', 17)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Charque com Queijo</span>
+          </div>
+          <div class="price">R$17,00</div>
+          <button onclick="addItem('Charque com Queijo', 17)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Costela</span>
+          </div>
+          <div class="price">R$17,00</div>
+          <button onclick="addItem('Costela', 17)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Costela com Queijo</span>
+          </div>
+          <div class="price">R$17,00</div>
+          <button onclick="addItem('Costela com Queijo', 17)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Camarão</span>
+          </div>
+          <div class="price">R$21,00</div>
+          <button onclick="addItem('Camarão', 21)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Camarão com Queijo</span>
+          </div>
+          <div class="price">R$21,00</div>
+          <button onclick="addItem('Camarão com Queijo', 21)">Adicionar</button>
+        </div>
+      </div>
+      
+      <!-- Pastéis Doces -->
+      <div class="menu-section" id="doces">
+        <h2>Pastéis Doces</h2>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Cartola</span>
+          </div>
+          <div class="price">R$15,00</div>
+          <button onclick="addItem('Cartola', 15)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Cartola com Queijo</span>
+          </div>
+          <div class="price">R$15,00</div>
+          <button onclick="addItem('Cartola com Queijo', 15)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Romeu e Julieta</span>
+          </div>
+          <div class="price">R$15,00</div>
+          <button onclick="addItem('Romeu e Julieta', 15)">Adicionar</button>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <span>Romeu e Julieta com Queijo</span>
+          </div>
+          <div class="price">R$15,00</div>
+          <button onclick="addItem('Romeu e Julieta com Queijo', 15)">Adicionar</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Carrinho -->
+    <div class="cart-container">
+      <h2>Seu Carrinho</h2>
+      <div id="cart-items">
+        <p>Nenhum item adicionado.</p>
+      </div>
+      <p class="cart-total">Total: R$ <span id="cart-total">0.00</span></p>
+      <div class="cart-actions">
+        <button onclick="clearCart()">Limpar Carrinho</button>
+        <a id="order-button" href="#" target="_blank">Pedir pelo WhatsApp</a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Vetor para armazenar os itens do carrinho
+    let cart = [];
+
+    // Adiciona um item (ou atualiza a quantidade, se já existir)
+    function addItem(name, price) {
+      const index = cart.findIndex(item => item.name === name);
+      if (index > -1) {
+        cart[index].quantity++;
+      } else {
+        cart.push({ name: name, price: price, quantity: 1 });
+      }
+      updateCart();
+    }
+
+    // Remove um item do carrinho
+    function removeItem(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    // Limpa todo o carrinho
+    function clearCart() {
+      cart = [];
+      updateCart();
+    }
+
+    // Atualiza a exibição do carrinho e o link do pedido
+    function updateCart() {
+      const cartItemsDiv = document.getElementById('cart-items');
+      cartItemsDiv.innerHTML = '';
+
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = '<p>Nenhum item adicionado.</p>';
+      } else {
+        cart.forEach((item, index) => {
+          const itemTotal = (item.price * item.quantity).toFixed(2);
+          cartItemsDiv.innerHTML += `
+            <div class="cart-item">
+              <span>${item.name} (x${item.quantity}) - R$ ${itemTotal}</span>
+              <button onclick="removeItem(${index})">Remover</button>
+            </div>
+          `;
+        });
+      }
+
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      document.getElementById('cart-total').innerText = total.toFixed(2);
+      updateOrderLink();
+    }
+
+    // Monta a mensagem do pedido e atualiza o link do WhatsApp
+    function updateOrderLink() {
+      let message = "Olá, gostaria de fazer o seguinte pedido:%0A";
+      cart.forEach(item => {
+        message += `${item.name} - x${item.quantity} - R$ ${(item.price * item.quantity).toFixed(2)}%0A`;
+      });
+      message += `%0ATotal: R$ ${document.getElementById('cart-total').innerText}`;
+      const whatsappNumber = "5581985519813"; // Substitua pelo número do seu estabelecimento, no formato internacional
+      const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      document.getElementById('order-button').href = whatsappLink;
+    }
+  </script>
+</body>
+</html>
